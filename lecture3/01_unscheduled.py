@@ -7,15 +7,17 @@ from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 
 dag = DAG(
-    dag_id="01_unscheduled", start_date=datetime(2019, 1, 1), schedule_interval=None
+    '01_unscheduled', 
+    start_date=datetime(2019, 1, 1), 
+    schedule=None
 )
 
 fetch_events = BashOperator(
     task_id="fetch_events",
-    bash_command=(
-        "mkdir -p /data/events && "
-        "curl -o /data/events.json http://events_api:5000/events"
-    ),
+    bash_command="""
+    mkdir -p ~/airflow/data
+    curl -o ~/airflow/data/events.json http://127.0.0.1:5003/events
+    """,
     dag=dag,
 )
 
@@ -34,7 +36,7 @@ def _calculate_stats(input_path, output_path):
 calculate_stats = PythonOperator(
     task_id="calculate_stats",
     python_callable=_calculate_stats,
-    op_kwargs={"input_path": "/data/events.json", "output_path": "/data/stats.csv"},
+    op_kwargs={"input_path": "/home/mimou/airflow/data/events.json", "output_path": "/home/mimou/airflow/data/stats.csv"},
     dag=dag,
 )
 
