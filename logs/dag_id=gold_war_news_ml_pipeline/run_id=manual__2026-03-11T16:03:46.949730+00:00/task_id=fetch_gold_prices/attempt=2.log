@@ -1,0 +1,5 @@
+{"timestamp":"2026-03-11T16:08:50.425340","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager"}
+{"timestamp":"2026-03-11T16:08:50.426027","level":"info","event":"Filling up the DagBag from /home/mimou/airflow/dags/gold_war_pipeline.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2026-03-11T16:08:51.128002Z","level":"info","event":"Fetching gold prices [2024-01-01 → 2026-03-11] ticker=GC=F","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:08:51.751032Z","level":"info","event":"Saved 550 rows → /home/mimou/airflow/mid-semester/data/gold_prices.csv","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:08:51.751634","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator"}

@@ -1,0 +1,37 @@
+{"timestamp":"2026-03-11T16:09:58.035170","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager"}
+{"timestamp":"2026-03-11T16:09:58.035589","level":"info","event":"Filling up the DagBag from /home/mimou/airflow/dags/gold_war_pipeline.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2026-03-11T16:09:59.094365Z","level":"info","event":"Loaded training data: (549, 15)","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:09:59.932868Z","level":"info","event":"  RandomForest: CV accuracy = 0.4898 ± 0.0126","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.227980Z","level":"info","event":"  GradientBoosting: CV accuracy = 0.5398 ± 0.0160","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.244873Z","level":"info","event":"  LogisticRegression: CV accuracy = 0.5102 ± 0.0485","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.245170Z","level":"info","event":"","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.245254Z","level":"info","event":"Best model: GradientBoosting (CV accuracy: 0.5398)","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.313200Z","level":"info","event":"","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.313355Z","level":"info","event":"Test accuracy : 0.5364","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.313396Z","level":"info","event":"ROC-AUC       : 0.5147","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.313424Z","level":"info","event":"","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.313449Z","level":"info","event":"Classification Report:","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317295Z","level":"info","event":"              precision    recall  f1-score   support","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317434Z","level":"info","event":"","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317479Z","level":"info","event":"           0       0.36      0.29      0.32        42","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317505Z","level":"info","event":"           1       0.61      0.69      0.65        68","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317528Z","level":"info","event":"","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317551Z","level":"info","event":"    accuracy                           0.54       110","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317573Z","level":"info","event":"   macro avg       0.49      0.49      0.48       110","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317594Z","level":"info","event":"weighted avg       0.52      0.54      0.52       110","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317615Z","level":"info","event":"","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317923Z","level":"info","event":"","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.317977Z","level":"info","event":"Feature importances:","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.318007Z","level":"info","event":"  price_change_pct               0.550736","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.318032Z","level":"info","event":"  prev_price_change_pct          0.449264","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.318055Z","level":"info","event":"  sentiment_mean                 0.000000","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.318078Z","level":"info","event":"  sentiment_min                  0.000000","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.318099Z","level":"info","event":"  sentiment_max                  0.000000","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.318120Z","level":"info","event":"  article_count                  0.000000","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.318141Z","level":"info","event":"  prev_sentiment                 0.000000","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.318172Z","level":"info","event":"  sentiment_7d_avg               0.000000","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.324747Z","level":"info","event":"","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.324861Z","level":"info","event":"Model saved → /home/mimou/airflow/mid-semester/models/gold_model_20260311.joblib","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.324901Z","level":"info","event":"Latest link → /home/mimou/airflow/mid-semester/models/gold_model_latest.joblib","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.324972Z","level":"info","event":"Metrics saved → /home/mimou/airflow/mid-semester/models/model_metrics_20260311.json","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:10:00.325153","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator"}

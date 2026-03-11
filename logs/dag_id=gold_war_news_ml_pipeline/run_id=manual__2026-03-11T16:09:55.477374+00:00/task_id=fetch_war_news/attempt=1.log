@@ -1,0 +1,8 @@
+{"timestamp":"2026-03-11T16:09:55.816437","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager"}
+{"timestamp":"2026-03-11T16:09:55.817333","level":"info","event":"Filling up the DagBag from /home/mimou/airflow/dags/gold_war_pipeline.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2026-03-11T16:09:56.119409Z","level":"info","event":"Parsing feed: https://rss.nytimes.com/services/xml/rss/nyt/World.xml","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:09:56.256244Z","level":"info","event":"Parsing feed: https://rss.nytimes.com/services/xml/rss/nyt/MiddleEast.xml","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:09:56.368169Z","level":"info","event":"Parsing feed: https://rss.nytimes.com/services/xml/rss/nyt/Europe.xml","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:09:56.462513Z","level":"info","event":"Parsing feed: https://rss.nytimes.com/services/xml/rss/nyt/US.xml","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:09:56.556161Z","level":"info","event":"Saved 60 war-related articles → /home/mimou/airflow/mid-semester/data/war_news.csv","chan":"stdout","logger":"task"}
+{"timestamp":"2026-03-11T16:09:56.556760","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator"}
