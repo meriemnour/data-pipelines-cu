@@ -36,17 +36,22 @@ WAR_KEYWORDS = [
 
 START_DATE = date(2024, 1, 1)
 
-
+#What It Does
+#Checks if a piece of text contains ANY war-related word. 
+#Returns True or False.
 def _is_war_related(text: str) -> bool:
     """Return True if the text contains any war-related keyword."""
     text_lower = text.lower()
     return any(kw in text_lower for kw in WAR_KEYWORDS)
 
-
+#What It Does
+#Extracts the publication date from an RSS article entry. 
+#Returns a date object or None if it fails.
 def _parse_pub_date(entry) -> date | None:
     """Extract publication date from an RSS entry."""
     try:
         if hasattr(entry, "published"):
+            #Converts the RSS date string into a Python datetime object:
             dt = parsedate_to_datetime(entry.published)
             return dt.date()
         if hasattr(entry, "updated"):
@@ -75,14 +80,22 @@ def fetch_and_save_war_news(
     -------
     str: Path to the saved CSV file
     """
+    #Creates the `data/` folder if it does not exist yet:
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    records = []
-    seen_links = set()
 
+    #records — empty list that will collect all war articles
+    records = []
+    #seen_links — empty set to track URLs we already processed (prevents duplicates)
+    seen_links = set()
+    
+    #feeds: list[str] = NYT_RSS_FEEDS,
     for feed_url in feeds:
         print(f"Parsing feed: {feed_url}")
         try:
+            #THE API CALL. Makes HTTP GET request to NYT URL,
+            #downloads XML, parses all articles and returns them as
+            #Python objects with .title, .summary, .link
             feed = feedparser.parse(feed_url)
         except Exception as e:
             print(f"  WARNING: Could not parse {feed_url}: {e}")
@@ -99,11 +112,11 @@ def fetch_and_save_war_news(
                 continue
             seen_links.add(link)
 
-            # Filter by war keywords
+            # Filter by war keywords(The Function "_is_war_related")
             if not _is_war_related(combined_text):
                 continue
 
-            # Filter by date
+            # Filter by date(The function "_parse_pub_date")
             pub_date = _parse_pub_date(entry)
             if pub_date and pub_date < start_date:
                 continue

@@ -38,6 +38,7 @@ def fetch_and_save_gold_prices(
     end_date = str(date.today())
     print(f"Fetching gold prices [{start_date} → {end_date}] ticker={ticker}")
 
+    #THE API CALL
     raw = yf.download(ticker, start=start_date, end=end_date, progress=False)
 
     if raw.empty:
