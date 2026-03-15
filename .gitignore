@@ -1,2 +1,4 @@
 data-pipelines-with-apache-airflow/
 
+airflow.db
+logs/
