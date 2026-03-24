@@ -1,0 +1,70 @@
+{
+  "run_date": "20260311",
+  "best_model": "GradientBoosting",
+  "cv_accuracy_by_model": {
+    "RandomForest": 0.4898,
+    "GradientBoosting": 0.5398,
+    "LogisticRegression": 0.5102
+  },
+  "test_accuracy": 0.5364,
+  "roc_auc": 0.5147,
+  "classification_report": {
+    "0": {
+      "precision": 0.36363636363636365,
+      "recall": 0.2857142857142857,
+      "f1-score": 0.32,
+      "support": 42.0
+    },
+    "1": {
+      "precision": 0.6103896103896104,
+      "recall": 0.6911764705882353,
+      "f1-score": 0.6482758620689655,
+      "support": 68.0
+    },
+    "accuracy": 0.5363636363636364,
+    "macro avg": {
+      "precision": 0.487012987012987,
+      "recall": 0.4884453781512605,
+      "f1-score": 0.48413793103448277,
+      "support": 110.0
+    },
+    "weighted avg": {
+      "precision": 0.5161747343565526,
+      "recall": 0.5363636363636364,
+      "f1-score": 0.5229341692789968,
+      "support": 110.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      12,
+      30
+    ],
+    [
+      21,
+      47
+    ]
+  ],
+  "feature_importance": {
+    "sentiment_mean": 0.0,
+    "sentiment_min": 0.0,
+    "sentiment_max": 0.0,
+    "article_count": 0.0,
+    "prev_sentiment": 0.0,
+    "price_change_pct": 0.550736,
+    "prev_price_change_pct": 0.449264,
+    "sentiment_7d_avg": 0.0
+  },
+  "train_size": 439,
+  "test_size": 110,
+  "features": [
+    "sentiment_mean",
+    "sentiment_min",
+    "sentiment_max",
+    "article_count",
+    "prev_sentiment",
+    "price_change_pct",
+    "prev_price_change_pct",
+    "sentiment_7d_avg"
+  ]
+}
