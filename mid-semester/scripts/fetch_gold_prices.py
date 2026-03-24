@@ -1,11 +1,3 @@
-"""
-fetch_gold_prices.py
---------------------
-Downloads daily gold price data (GC=F) from Yahoo Finance
-for the date range 2024-01-01 → today.
-Saves result to /home/mimou/airflow/mid-semester/data/gold_prices.csv
-"""
-
 import os
 import pandas as pd
 import yfinance as yf
@@ -20,19 +12,6 @@ def fetch_and_save_gold_prices(
     start_date: str = "2024-01-01",
     output_path: str = OUTPUT_FILE,
 ) -> str:
-    """
-    Fetches gold futures prices from Yahoo Finance and saves to CSV.
-
-    Parameters
-    ----------
-    ticker     : Yahoo Finance ticker symbol for gold futures
-    start_date : Start date for data collection (YYYY-MM-DD)
-    output_path: Where to save the resulting CSV
-
-    Returns
-    -------
-    str: Path to the saved CSV file
-    """
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
     end_date = str(date.today())
@@ -84,8 +63,6 @@ def fetch_and_save_gold_prices(
     print(f"Saved {len(df)} rows → {output_path}")
     return output_path
 
-
-# ── standalone execution ───────────────────────────────────────────────
 if __name__ == "__main__":
     path = fetch_and_save_gold_prices()
     df = pd.read_csv(path)
