@@ -1,15 +1,3 @@
-"""
-test_model.py
--------------
-Loads the latest trained gold-price prediction model and runs
-a comprehensive test suite.
-
-Usage:
-    python test_model.py
-    python test_model.py --model /path/to/model.joblib
-    python test_model.py --data  /path/to/training_data.csv
-"""
-
 import os, sys, argparse, json
 import numpy as np
 import pandas as pd
@@ -32,10 +20,10 @@ def test_model_loads(path):
     _sec("TEST 1 — Model Loads")
     try:
         m = joblib.load(path)
-        print(f"✅ PASS  Loaded: {path}  [{type(m).__name__}]")
+        print(f" PASS  Loaded: {path}  [{type(m).__name__}]")
         return m
     except Exception as e:
-        print(f"❌ FAIL  {e}"); sys.exit(1)
+        print(f" FAIL  {e}"); sys.exit(1)
 
 def test_predict_interface(m):
     _sec("TEST 2 — Predict Interface")
@@ -48,53 +36,53 @@ def test_predict_interface(m):
         try:
             pred = m.predict(np.array(x))[0]
             prob = m.predict_proba(np.array(x))[0]
-            print(f"✅ PASS  [{label}]  → {'UP ↑' if pred==1 else 'DOWN ↓'}  conf:{max(prob):.2%}")
+            print(f" PASS  [{label}]  → {'UP ↑' if pred==1 else 'DOWN ↓'}  conf:{max(prob):.2%}")
         except Exception as e:
-            print(f"❌ FAIL  [{label}]  → {e}")
+            print(f" FAIL  [{label}]  → {e}")
 
 def test_feature_count(m):
     _sec("TEST 3 — Feature Count")
     n = len(FEATURE_COLS)
     try:
         m.predict(np.zeros((1, n+1)))
-        print(f"⚠️  WARN  Model accepted wrong feature count {n+1}")
+        print(f"  WARN  Model accepted wrong feature count {n+1}")
     except Exception:
-        print(f"✅ PASS  Correctly rejects wrong feature count")
+        print(f" PASS  Correctly rejects wrong feature count")
     try:
         m.predict(np.zeros((1, n)))
-        print(f"✅ PASS  Accepts correct feature count ({n})")
+        print(f" PASS  Accepts correct feature count ({n})")
     except Exception as e:
-        print(f"❌ FAIL  {e}")
+        print(f" FAIL  {e}")
 
 def test_output_classes(m):
     _sec("TEST 4 — Output Classes")
     X = np.random.randn(50, len(FEATURE_COLS))
     preds = m.predict(X)
     if set(preds).issubset({0,1}):
-        print(f"✅ PASS  All predictions binary (0/1): {dict(zip(*np.unique(preds, return_counts=True)))}")
+        print(f" PASS  All predictions binary (0/1): {dict(zip(*np.unique(preds, return_counts=True)))}")
     else:
-        print(f"❌ FAIL  Unexpected values: {set(preds)}")
+        print(f" FAIL  Unexpected values: {set(preds)}")
     probs = m.predict_proba(X)
-    print(f"{'✅ PASS' if probs.shape==(50,2) else '❌ FAIL'}  predict_proba shape: {probs.shape}")
-    print(f"{'✅ PASS' if np.allclose(probs.sum(1),1,atol=1e-6) else '❌ FAIL'}  Probs sum to 1.0")
+    print(f"{' PASS' if probs.shape==(50,2) else '❌ FAIL'}  predict_proba shape: {probs.shape}")
+    print(f"{' PASS' if np.allclose(probs.sum(1),1,atol=1e-6) else '❌ FAIL'}  Probs sum to 1.0")
 
 def test_on_training_data(m, data_path):
     _sec("TEST 5 — Performance on Held-Out Test Split")
     if not os.path.exists(data_path):
-        print(f"⚠️  WARN  {data_path} not found. Skipping."); return
+        print(f"  WARN  {data_path} not found. Skipping."); return
     df = pd.read_csv(data_path)
     X = df[FEATURE_COLS].fillna(0).values
     y = df["target"].values
     split = int(len(X)*0.8)
     Xt, yt = X[split:], y[split:]
     if len(Xt)==0:
-        print("⚠️  WARN  Not enough data for test split."); return
+        print("  WARN  Not enough data for test split."); return
     yp = m.predict(Xt)
     yprob = m.predict_proba(Xt)[:,1]
     acc = accuracy_score(yt, yp)
     roc = roc_auc_score(yt, yprob)
-    print(f"{'✅ PASS' if acc>=0.5 else '⚠️  WARN'}  Test accuracy: {acc:.4f}")
-    print(f"✅ PASS  ROC-AUC: {roc:.4f}")
+    print(f"{' PASS' if acc>=0.5 else '⚠️  WARN'}  Test accuracy: {acc:.4f}")
+    print(f" PASS  ROC-AUC: {roc:.4f}")
     print(classification_report(yt, yp, target_names=["DOWN(0)","UP(1)"]))
 
 def test_edge_cases(m):
@@ -106,9 +94,9 @@ def test_edge_cases(m):
     ]:
         try:
             pred = m.predict(np.nan_to_num(X))[0]
-            print(f"✅ PASS  [{label}] → {pred}")
+            print(f" PASS  [{label}] → {pred}")
         except Exception as e:
-            print(f"❌ FAIL  [{label}] → {e}")
+            print(f"FAIL  [{label}] → {e}")
 
 def main():
     p = argparse.ArgumentParser()
