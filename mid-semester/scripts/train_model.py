@@ -1,15 +1,3 @@
-"""
-train_model.py
---------------
-Trains a Random Forest classifier to predict whether gold prices
-will go UP (1) or DOWN (0) the next day based on war-news sentiment.
-
-Saves:
-  - /home/mimou/airflow/mid-semester/models/gold_model_<YYYYMMDD>.joblib   (timestamped)
-  - /home/mimou/airflow/mid-semester/models/gold_model_latest.joblib        (always latest)
-  - /home/mimou/airflow/mid-semester/models/model_metrics_<YYYYMMDD>.json   (evaluation report)
-"""
-
 import os
 import json
 import joblib
@@ -62,7 +50,6 @@ def train_and_save_model(
     """
     os.makedirs(models_dir, exist_ok=True)
 
-    # ── Load data ────────────────────────────────────────────────────
     df = pd.read_csv(training_csv)
     print(f"Loaded training data: {df.shape}")
 
@@ -77,12 +64,12 @@ def train_and_save_model(
     if len(X) < 30:
         raise ValueError(f"Not enough training samples ({len(X)}). Need at least 30.")
 
-    # ── Train / test split (80/20, time-ordered — no shuffle) ────────
+    # Train / test split (80/20, time-ordered — no shuffle)
     split = int(len(X) * 0.8)
     X_train, X_test = X[:split], X[split:]
     y_train, y_test = y[:split], y[split:]
 
-    # ── Build pipeline ───────────────────────────────────────────────
+    # Build pipeline 
     # Try three models, keep the best by CV accuracy
     candidates = {
         "RandomForest": Pipeline([
@@ -122,10 +109,10 @@ def train_and_save_model(
 
     print(f"\nBest model: {best_name} (CV accuracy: {best_cv:.4f})")
 
-    # ── Final fit on full training set ───────────────────────────────
+    #Final fit on full training set
     best_pipeline.fit(X_train, y_train)
 
-    # ── Evaluate on held-out test set ────────────────────────────────
+    # Evaluate on held-out test set 
     y_pred = best_pipeline.predict(X_test)
     y_prob = best_pipeline.predict_proba(X_test)[:, 1] if hasattr(best_pipeline, "predict_proba") else None
 
@@ -140,7 +127,7 @@ def train_and_save_model(
     print("\nClassification Report:")
     print(classification_report(y_test, y_pred))
 
-    # ── Feature importance (if available) ────────────────────────────
+    # Feature importance (if available)
     feature_importance = {}
     estimator = best_pipeline.named_steps.get("clf")
     if hasattr(estimator, "feature_importances_"):
@@ -150,7 +137,7 @@ def train_and_save_model(
         for feat, imp in sorted(feature_importance.items(), key=lambda x: -x[1]):
             print(f"  {feat:30s} {imp:.6f}")
 
-    # ── Save model ───────────────────────────────────────────────────
+    # Save model 
     today_str = date.today().strftime("%Y%m%d")
     model_filename = f"gold_model_{today_str}.joblib"
     model_path = os.path.join(models_dir, model_filename)
@@ -161,7 +148,7 @@ def train_and_save_model(
     print(f"\nModel saved → {model_path}")
     print(f"Latest link → {latest_path}")
 
-    # ── Save metrics ─────────────────────────────────────────────────
+    #  Save metrics 
     metrics = {
         "run_date": today_str,
         "best_model": best_name,
@@ -183,7 +170,7 @@ def train_and_save_model(
     return model_path
 
 
-# ── standalone execution ───────────────────────────────────────────────
+#  standalone execution 
 if __name__ == "__main__":
     training_csv = os.path.join(DATA_DIR, "training_data.csv")
     train_and_save_model(training_csv)
